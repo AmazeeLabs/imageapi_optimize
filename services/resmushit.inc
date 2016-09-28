@@ -20,7 +20,7 @@ function imageapi_optimize_services_resmushit_info() {
  */
 function imageapi_optimize_services_resmushit($image, $dst) {
   $dst = drupal_realpath($dst);
-  $url = 'http://www.resmush.it/ws.php';
+  $url = 'http://api.resmush.it/ws.php';
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
