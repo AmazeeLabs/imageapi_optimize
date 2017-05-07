@@ -28,7 +28,7 @@ function imageapi_optimize_services_resmushit($image, $dst) {
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
   curl_setopt($ch, CURLOPT_POST, TRUE);
   if (!class_exists('CURLFile')) {
     $arg = array('files' => '@' . $dst);
@@ -42,6 +42,7 @@ function imageapi_optimize_services_resmushit($image, $dst) {
   curl_setopt($ch, CURLOPT_POSTFIELDS, $arg);
 
   $data = curl_exec($ch);
+  $curl_error = curl_error($ch);
   curl_close($ch);
 
   $json = json_decode($data);
@@ -58,8 +59,8 @@ function imageapi_optimize_services_resmushit($image, $dst) {
       watchdog(
         'imageapi_optimize',
         'Cannot optimize image. drupal_http_request() call resulted in error.
-        drupal_http_request() result (print_r):<pre>@result</pre>
-        ReSmush.it response parsed (print_r):<pre>@json</pre>',
+        <br>drupal_http_request() result (print_r):<pre>@result</pre>
+        <br>ReSmush.it response parsed (print_r):<pre>@json</pre>',
         array(
           '@result' => print_r($result, TRUE),
           '@json' => print_r($json, TRUE),
@@ -72,11 +73,13 @@ function imageapi_optimize_services_resmushit($image, $dst) {
     watchdog(
       'imageapi_optimize',
       'Cannot optimize image. ReSmush.it API call resulted in error.
-      ReSmush.it response parsed (print_r):<pre>@json</pre>
-      ReSmush.it response raw (print_r):<pre>@data</pre>',
+      <br>ReSmush.it response parsed (print_r):<pre>@json</pre>
+      <br>ReSmush.it response raw (print_r):<pre>@data</pre>
+      <br>CURL error: "@curl_error"',
       array(
         '@json' => print_r($json, TRUE),
         '@data' => print_r($data, TRUE),
+        '@curl_error' => $curl_error,
       ),
       WATCHDOG_WARNING
     );
