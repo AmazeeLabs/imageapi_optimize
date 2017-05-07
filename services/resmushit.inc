@@ -54,5 +54,30 @@ function imageapi_optimize_services_resmushit($image, $dst) {
       file_unmanaged_save_data($result->data, $dst, FILE_EXISTS_REPLACE);
       return TRUE;
     }
+    else {
+      watchdog(
+        'imageapi_optimize',
+        'Cannot optimize image. drupal_http_request() call resulted in error.
+        Result:<pre>@result</pre>
+        API response raw:<pre>@data</pre>',
+        array(
+          '@result' => print_r($result, TRUE),
+        ),
+        WATCHDOG_WARNING
+      );
+    }
+  }
+  else {
+    watchdog(
+      'imageapi_optimize',
+      'Cannot optimize image. ReSmush.it API call resulted in error.
+      API response parsed (print_r):<pre>@json</pre>
+      API response raw (print_r):<pre>@data</pre>',
+      array(
+        '@json' => print_r($json, TRUE),
+        '@data' => print_r($data, TRUE),
+      ),
+      WATCHDOG_WARNING
+    );
   }
 }
