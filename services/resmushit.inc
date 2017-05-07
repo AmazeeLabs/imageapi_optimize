@@ -58,10 +58,11 @@ function imageapi_optimize_services_resmushit($image, $dst) {
       watchdog(
         'imageapi_optimize',
         'Cannot optimize image. drupal_http_request() call resulted in error.
-        Result:<pre>@result</pre>
-        API response raw:<pre>@data</pre>',
+        drupal_http_request() result (print_r):<pre>@result</pre>
+        ReSmush.it response parsed (print_r):<pre>@json</pre>',
         array(
           '@result' => print_r($result, TRUE),
+          '@json' => print_r($json, TRUE),
         ),
         WATCHDOG_WARNING
       );
@@ -71,8 +72,8 @@ function imageapi_optimize_services_resmushit($image, $dst) {
     watchdog(
       'imageapi_optimize',
       'Cannot optimize image. ReSmush.it API call resulted in error.
-      API response parsed (print_r):<pre>@json</pre>
-      API response raw (print_r):<pre>@data</pre>',
+      ReSmush.it response parsed (print_r):<pre>@json</pre>
+      ReSmush.it response raw (print_r):<pre>@data</pre>',
       array(
         '@json' => print_r($json, TRUE),
         '@data' => print_r($data, TRUE),
