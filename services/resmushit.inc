@@ -44,7 +44,7 @@ function imageapi_optimize_services_resmushit($image, $dst) {
   // SmushIt returns an error if it cannot optimize the image. Otherwise, it
   // returns an object, with 'dest' (temporary file) and 'percent' (savings)
   // among other properties.
-  if (!isset($json->error)) {
+  if (!isset($json->error) && isset($json->dest)) {
     $result = drupal_http_request($json->dest);
     if (!isset($result->error)) {
       file_unmanaged_save_data($result->data, $dst, FILE_EXISTS_REPLACE);
