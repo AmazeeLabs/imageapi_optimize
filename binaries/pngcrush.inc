@@ -25,4 +25,7 @@ function imageapi_optimize_binaries_pngcrush($image, $dst, $cmd, $settings) {
     $temp = drupal_realpath(drupal_tempnam('temporary://', 'file'));
     exec("$cmd -rem alla -reduce -brute -q " . escapeshellarg($dst) . " " . escapeshellarg($temp) . " && mv " . escapeshellarg($temp) . " " . escapeshellarg($dst));
   }
+  if (file_exists($temp)) {
+    unlink($temp);
+  }
 }
