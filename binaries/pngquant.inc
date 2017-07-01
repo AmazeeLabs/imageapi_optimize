@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @file
- * pngquant integration.
+ * Pngquant integration.
  */
 
 /**
@@ -17,7 +18,7 @@ function imageapi_optimize_binaries_pngquant_info() {
 }
 
 /**
- * pngquant ImageAPI Optimize binary callback.
+ * Pngquant ImageAPI Optimize binary callback.
  */
 function imageapi_optimize_binaries_pngquant($image, $dst, $cmd, $settings) {
   if ($image->info['mime_type'] == 'image/png') {

@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @file
- * Install, update and uninstall functions
+ * Install, update and uninstall functions.
  */
 
 /**
@@ -39,7 +40,7 @@ function imageapi_optimize_update_7000() {
 }
 
 /**
- * If imageapi_optimize_service is set to 'smushit', change it to 'resmushit'
+ * If imageapi_optimize_service is set to 'smushit', change it to 'resmushit'.
  */
 function imageapi_optimize_update_7001() {
   $var = variable_get('imageapi_optimize_service');

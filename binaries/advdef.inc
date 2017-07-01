@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * AdvanceCOMP Deflate Compression Utility integration.

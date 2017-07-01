@@ -1,8 +1,10 @@
 <?php
+
 /**
  * @file
  * ReSmush.it service integration.
- * Dedicated to old Yahoo Smush.it
+ *
+ * Dedicated to old Yahoo Smush.it.
  */
 
 /**

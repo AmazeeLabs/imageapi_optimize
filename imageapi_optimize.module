@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @file
- * Image optimize functionalities
+ * Image optimize functionalities.
  */
 
 /**
@@ -163,7 +164,7 @@ function image_imageapi_optimize_settings() {
     }
   }
 
-  // Reloads methods because user may change toolkit
+  // Reloads methods because user may change toolkit.
   $form['#submit'][] = '_imageapi_optimize_get_methods';
 
   return $form;
@@ -179,14 +180,14 @@ function imageapi_optimize_toolkit_element_validate($element) {
 }
 
 /**
- * Implements image_HOOK_load().
+ * Load callback for the imageapi_optimize image toolkit.
  */
 function image_imageapi_optimize_load($image) {
   return _imageapi_optimize_invoke('load', $image);
 }
 
 /**
- * Implements image_HOOK_save().
+ * Save callback for the imageapi_optimize image toolkit.
  */
 function image_imageapi_optimize_save($image, $dst) {
   if (_imageapi_optimize_invoke('save', $image, array($dst))) {
@@ -194,6 +195,7 @@ function image_imageapi_optimize_save($image, $dst) {
   }
   return FALSE;
 }
+
 /**
  * Helper. Based on image_toolkit_invoke()
  */
@@ -208,7 +210,7 @@ function _imageapi_optimize_invoke($method, $image, array $params = array()) {
 }
 
 /**
- * Optimizes image with external commands
+ * Optimizes image with external commands.
  */
 function _imageapi_optimize_optimize($image, $dst) {
   $info = imageapi_optimize_info();
@@ -275,12 +277,12 @@ function imageapi_optimize_info($reset = FALSE) {
 
         foreach ($data['callbacks'] as $callback) {
           if (!function_exists($callback)) {
-            $error .= t('Function !callback doesn\'t exist.', array('!callback' => $callback)) . '<br />';
+            $error .= t('Function !callback does not exist.', array('!callback' => $callback)) . '<br />';
           }
         }
 
         if (isset($data['file']) && !file_exists($data['file'])) {
-          $error .= t('File !file doesn\'t exist.', array('!file' => $file)) . '<br />';
+          $error .= t('File !file does not exist.', array('!file' => $file)) . '<br />';
         }
 
         if (!empty($error)) {
@@ -303,6 +305,7 @@ function imageapi_optimize_info($reset = FALSE) {
 
 /**
  * Gets all implemented methods by ImageAPI and contrib modules.
+ *
  * This function takes a dozens of miliseconds CPU times.
  */
 function _imageapi_optimize_get_methods() {

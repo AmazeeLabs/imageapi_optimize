@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * OptiPNG: Advanced PNG Optimizer integration.

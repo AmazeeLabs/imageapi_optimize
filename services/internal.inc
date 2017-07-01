@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Internal ImageAPI Optimize service.
@@ -202,10 +203,10 @@ function imageapi_optimize_validate_path($element) {
 }
 
 /**
- * Checks if a path exists and is executable
+ * Checks if a path exists and is executable.
  *
  * Warning: it does not check if the command is harmful.
- * You should keep an eye on users with "administer imageapi" permission
+ * You should keep an eye on users with "administer imageapi" permission.
  */
 function _imageapi_optimize_check_path($path) {
   $errors = array();
@@ -219,7 +220,11 @@ function _imageapi_optimize_check_path($path) {
     }
     $open_basedir = ini_get('open_basedir');
     if ($errors && $open_basedir) {
-      $errors[] = t('PHP\'s <a href="!open-basedir">open_basedir</a> security restriction is set to %open-basedir, which may be interfering with attempts to locate %file.', array('%file' => $path, '%open-basedir' => $open_basedir, '!info-link' => url('http://php.net/features.safe-mode#ini.open-basedir')));
+      $errors[] = t('PHP\'s <a href="!open-basedir">open_basedir</a> security restriction is set to %open-basedir, which may be interfering with attempts to locate %file.', array(
+        '%file' => $path,
+        '%open-basedir' => $open_basedir,
+        '!info-link' => url('http://php.net/features.safe-mode#ini.open-basedir'),
+      ));
     }
   }
 

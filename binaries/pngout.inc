@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * PNGOUT integration.
@@ -17,7 +18,7 @@ function imageapi_optimize_binaries_pngout_info() {
 }
 
 /**
- * pngquant ImageAPI Optimize binary callback.
+ * Pngquant ImageAPI Optimize binary callback.
  */
 function imageapi_optimize_binaries_pngout($image, $dst, $cmd, $settings) {
   if ($image->info['mime_type'] == 'image/png') {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * AdvanceCOMP PNG Compression Utility integration.
