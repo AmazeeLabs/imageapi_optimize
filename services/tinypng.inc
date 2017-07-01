@@ -96,21 +96,18 @@ function imageapi_optimize_services_tinypng($image, $dst) {
     $result = drupal_http_request($json['output']['url']);
     if (!isset($result->error)) {
       if (!file_unmanaged_save_data($result->data, $dst, FILE_EXISTS_REPLACE)) {
-        $message = t('Processed image received from TinyPNG.com could not be saved to disk on @dir. Please review the directory permissions', array('@dir' => $filepath));
-        watchdog('imageapi', $message);
+        watchdog('imageapi', 'Processed image received from TinyPNG.com could not be saved to disk on @dir. Please review the directory permissions', array('@dir' => $filepath));
         return FALSE;
       }
 
       if ($settings['debug_mode_tinypng']) {
-        $message = t('Sucessful request to TinyPNG.com for @file.<br>Initial file size = @input bytes.<br>Final file size = @output bytes.<br>Compression ratio = @ratio.', array('@file' => $dst, '@input' => $json['input']['size'], '@output' => $json['output']['size'], '@ratio' => $json['output']['ratio']));
-        watchdog('imageapi', $message);
+        watchdog('imageapi', 'Sucessful request to TinyPNG.com for @file.<br>Initial file size = @input bytes.<br>Final file size = @output bytes.<br>Compression ratio = @ratio.', array('@file' => $dst, '@input' => $json['input']['size'], '@output' => $json['output']['size'], '@ratio' => $json['output']['ratio']));
       }
       return TRUE;
     }
   }
 
   // Something went wrong :(
-  $message = t('TinyPNG.com could not process your request for @file. Error code = @error - @msg', array('@file' => $filepath, '@error' => $json['error'], '@msg' => $json['message']));
-  watchdog('imageapi', $message);
+  watchdog('imageapi', 'TinyPNG.com could not process your request for @file. Error code = @error - @msg', array('@file' => $filepath, '@error' => $json['error'], '@msg' => $json['message']));
   return FALSE;
 }
