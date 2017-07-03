@@ -209,8 +209,8 @@ function image_imageapi_optimize_save($image, $dst) {
     $success = _imageapi_optimize_optimize($image, $dst);
 
     // Move temporary local file to remote destination.
-    if (isset($permanent_destination) && $success) {
-      return (bool) file_unmanaged_move($dst, $permanent_destination, FILE_EXISTS_REPLACE);
+    if (isset($permanent_destination)) {
+      $success = ((bool) file_unmanaged_move($dst, $permanent_destination, FILE_EXISTS_REPLACE)) && $success;
     }
     return $success;
   }
