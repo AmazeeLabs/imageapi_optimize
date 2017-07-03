@@ -191,8 +191,28 @@ function image_imageapi_optimize_load($image) {
  * Save callback for the imageapi_optimize image toolkit.
  */
 function image_imageapi_optimize_save($image, $dst) {
+  $scheme = file_uri_scheme($dst);
+  // Work around lack of stream wrapper support.
+  // Taken from image_gd_save().
+  if ($scheme && file_stream_wrapper_valid_scheme($scheme)) {
+    // If destination is not local, save image to temporary local file.
+    $local_wrappers = file_get_stream_wrappers(STREAM_WRAPPERS_LOCAL);
+    if (!isset($local_wrappers[$scheme])) {
+      $permanent_destination = $dst;
+      $dst = drupal_tempnam('temporary://', 'imageapi_optimize_');
+    }
+    // Convert stream wrapper URI to normal path.
+    $dst = drupal_realpath($dst);
+  }
+
   if (_imageapi_optimize_invoke('save', $image, array($dst))) {
-    return _imageapi_optimize_optimize($image, $dst);
+    $success = _imageapi_optimize_optimize($image, $dst);
+
+    // Move temporary local file to remote destination.
+    if (isset($permanent_destination) && $success) {
+      return (bool) file_unmanaged_move($dst, $permanent_destination, FILE_EXISTS_REPLACE);
+    }
+    return $success;
   }
   return FALSE;
 }
