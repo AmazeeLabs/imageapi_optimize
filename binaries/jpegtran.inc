@@ -46,6 +46,11 @@ function imageapi_optimize_binaries_jpegtran($image, $dst, $cmd, $settings) {
       $args .= '-progressive ';
     }
 
-    _imageapi_optimize_exec("$cmd -copy none -optimize " . $args . escapeshellarg($dst), $dst);
+    if (substr(PHP_OS, 0, 3) == 'WIN') {
+      passthru("$cmd -copy none -optimize " . $args . escapeshellarg($dst) . " " . escapeshellarg($dst), $dst);
+    }
+    else {
+      _imageapi_optimize_exec("$cmd -copy none -optimize " . $args . escapeshellarg($dst), $dst);
+    }
   }
 }
